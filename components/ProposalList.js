@@ -27,10 +27,10 @@ export default function ProposalList({ proposals, onSelect, selectedProposalId }
           onClick={() => onSelect(proposal)}
         >
           <CardContent className="p-4">
-            <h3 className="font-semibold mb-2">{proposal.title}</h3>
+            <h3 className="font-semibold mb-2 text-sm">{proposal.title}</h3>
             <div className="flex justify-between items-center">
               <Badge className={getStatusColor(proposal.status)}>{proposal.status}</Badge>
-              <span className="text-sm text-gray-500">{proposal.submissionDate}</span>
+              <span className="text-xs text-gray-500">{proposal.submissionDate}</span>
             </div>
           </CardContent>
         </Card>

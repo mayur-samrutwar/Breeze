@@ -62,13 +62,13 @@ export default function Layout({ children }) {
           </nav>
         </div>
       </header>
-      <main className="flex-grow bg-[#fff6e1ff]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="w-full px-10 flex-grow bg-[#fff6e1ff]">
+        <div className="px-4 sm:px-6 lg:px-8 py-8">
           {children}
         </div>
       </main>
-      <footer className="bg-white shadow-md mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-gray-500">
+      <footer className="bg-black shadow-md mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-gray-100">
           © 2024 BreezeLabs. All rights reserved.
         </div>
       </footer>

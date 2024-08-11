@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import ProposalList from '../../../components/ProposalList';
 import ProposalDetails from '../../../components/ProposalDetails';
 import Milestones from '../../../components/Milestones';
@@ -42,8 +42,7 @@ export default function GrantDetailPage() {
   const handleNewProposalSubmit = (formData) => {
     console.log('New proposal submitted:', formData);
     setShowNewProposalForm(false);
-    // Here you would typically send the new proposal data to your backend
-    // and update the list of proposals
+    // Backend interaction would go here
   };
 
   const filteredAndSortedProposals = DUMMY_PROPOSALS
@@ -51,30 +50,32 @@ export default function GrantDetailPage() {
     .sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
 
   return (
-    <div className="space-y-6">
-      <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+    <div className="mx-auto px-4 pb-8">
+      <Button variant="ghost" onClick={() => router.back()} className="mb-6 text-sm">
         <ArrowLeft className="mr-2 h-4 w-4" /> Back to Grants
       </Button>
 
-      <Card className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <Award className="h-6 w-6" />
-            <span>{DUMMY_GRANT.name}</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="mt-2">{DUMMY_GRANT.description}</p>
-          <div className="mt-4 flex justify-between items-center">
-            <span className="text-2xl font-bold">${DUMMY_GRANT.maxSize.toLocaleString()} Max Grant</span>
-            <Button onClick={() => setShowNewProposalForm(true)} className="bg-white text-blue-600 hover:bg-blue-50">
-              <Plus className="mr-2 h-4 w-4" /> Submit New Proposal
-            </Button>
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg mb-8">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-semibold text-gray-800 flex items-center">
+            <Award className="h-5 w-5 mr-2 text-indigo-600" />
+            {DUMMY_GRANT.name}
+          </h1>
+          <span className="text-lg font-medium text-indigo-600">Up to ${DUMMY_GRANT.maxSize.toLocaleString()}</span>
+        </div>
+        <p className="text-sm text-gray-600 mb-4">{DUMMY_GRANT.description}</p>
+        <div className="flex justify-between items-center">
+          <div className="text-sm text-gray-500">
+            <span className="mr-4">Total Proposals: {DUMMY_GRANT.totalProposals}</span>
+            <span>Accepted: {DUMMY_GRANT.acceptedProposals}</span>
           </div>
-        </CardContent>
-      </Card>
+          <Button onClick={() => setShowNewProposalForm(true)} className="bg-indigo-600 text-white hover:bg-indigo-700">
+            <Plus className="mr-2 h-4 w-4" /> Submit New Proposal
+          </Button>
+        </div>
+      </div>
 
-      <div className="flex space-x-4 my-4">
+      <div className="flex space-x-4 mb-6">
         <div className="relative flex-grow">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <Input
@@ -97,25 +98,29 @@ export default function GrantDetailPage() {
       </div>
 
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-3">
-          <ProposalList 
-            proposals={filteredAndSortedProposals} 
-            onSelect={handleProposalSelect} 
-            selectedProposalId={selectedProposal?.id}
-          />
+        <div className="col-span-4 lg:col-span-3">
+          <Card className="h-[calc(100vh-16rem)] overflow-y-auto">
+            <CardContent className="p-4">
+              <ProposalList 
+                proposals={filteredAndSortedProposals} 
+                onSelect={handleProposalSelect} 
+                selectedProposalId={selectedProposal?.id}
+              />
+            </CardContent>
+          </Card>
         </div>
-        <div className="col-span-6">
+        <div className="col-span-8 lg:col-span-6">
           {selectedProposal ? (
             <ProposalDetails proposal={selectedProposal} />
           ) : (
-            <Card>
-              <CardContent className="p-6 text-center text-gray-500">
+            <Card className="h-full flex items-center justify-center">
+              <CardContent className="text-center text-gray-500">
                 Select a proposal to view details
               </CardContent>
             </Card>
           )}
         </div>
-        <div className="col-span-3">
+        <div className="col-span-12 lg:col-span-3">
           {selectedProposal && <Milestones proposalId={selectedProposal.id} />}
         </div>
       </div>

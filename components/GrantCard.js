@@ -38,7 +38,7 @@ export default function GrantCard({ grant }) {
             <span className="text-xl font-bold text-indigo-600">${grant.maxSize.toLocaleString()}</span>
           </div>
           <Link href={`/user/grants/${grant.id}`} passHref>
-            <Button variant="ghost" className="text-indigo-600 hover:text-indigo-700 hover:bg-indigo-100 px-6 flex items-center">
+            <Button variant="ghost" className="bg-blue-50 text-blue-600 hover:bg-blue-100 px-6 flex items-center">
               View Details
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
